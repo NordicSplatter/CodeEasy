@@ -1,0 +1,92 @@
+/*
+>0
+>0
+>2
+>4
+###
+###
+###
+###
+###
+
+or
+
+>2
+>3
+>5
+>6
+......
+......
+......
+..####
+..####
+..####
+..####
+*/
+
+using System;
+
+namespace AccessModifiers
+{
+    class Point2D
+    {
+        public int X;
+        public int Y;
+    }
+
+    // Write your code here
+    class LitArea2D
+    {
+        Point2D _topLeft;
+        Point2D _bottomRight;
+
+        public LitArea2D(int xTopLeft, int yTopLeft, int xBottomRight, int yBottomRight)
+        {
+            _topLeft = new Point2D()
+            {
+                X = xTopLeft,
+                Y = yTopLeft
+            };
+
+            _bottomRight = new Point2D()
+            {
+                X = xBottomRight,
+                Y = yBottomRight
+            };
+
+            
+        }
+        public void Draw()
+        {
+            for(int i = 0; i <= _bottomRight.Y - _topLeft.Y; i++)
+            {
+                for(int j = 0; j <= _bottomRight.X - _topLeft.X; j++)
+                {
+                    Console.Write("#");
+                }
+                
+                Console.WriteLine();
+            }
+            
+        
+        }
+    }
+
+    class DrawLitArea
+    {
+        public static void Main()
+        {
+            // Write your code here
+            int XtopL = int.Parse(Console.ReadLine());
+            int YtopL = int.Parse(Console.ReadLine());
+            int XbottomR = int.Parse(Console.ReadLine());
+            int YbottomR = int.Parse(Console.ReadLine());
+
+            LitArea2D hallway = new LitArea2D(XtopL, YtopL, XbottomR, YbottomR);
+            
+            hallway.Draw();
+            
+        }
+
+    }
+}
