@@ -1,0 +1,161 @@
+/*Attention users 
+***Written by Cody Eb
+*** Gleefully broken and rebroken until I corrected mistakes by Christopher Kelly
+If you like it leave an upvote, if not please send me a message letting me know what you think ought to be improved!
+
+this code keeps track of how much liquid you
+have sipped from your cup and automatically
+refills it once the glass has less than
+100ml.
+The program terminates when you type "stop"
+
+commands are:
+"drink (enter an int)"
+"print" to see how much liquid is left
+and "stop"
+
+
+ex
+
+drink 15
+print
+drink 25
+drink 40
+print
+stop
+*/
+using System;
+namespace ClassAndObjectAndAsciiArt
+{
+    public class Glass
+    {
+        public int LiquidLevel;
+        //method to subtract the amount of liquid consumed from the glass total
+        public void Drink(int milliliters)
+        {
+            LiquidLevel -= milliliters;
+            return;
+        }
+        //method to refill object
+        public void Refill()
+        {
+            LiquidLevel = 200;
+            return;
+        }
+    }
+    public class LackOfVisualization
+    {
+        public static void Main()
+        {
+            //new instance of object from Glass class, initializing the liquidlevel
+            Glass stein = new Glass
+            {
+                LiquidLevel = 200
+            };
+            //program will run until while loop(programOn) is set to false
+            bool programOn = true;
+            while (programOn)
+            {
+                string sipping = Console.ReadLine();
+                string errorMessage = ("Incorrect input. Please follow the instructions. \n"
+                            + "Type \"drink {int}\" \n"
+                            + "Utilize the drink command as many times as you want\n"
+                            + "To output what is left in the glass type \"print\"\n"
+                            + "***Remember! If the glass drops below 100mL, it will refill!***\n"
+                            + "To terminate the program type \"stop\" \n");
+
+                int mLsDrank = 0;
+                //Switch to match substrings within string
+                switch (sipping)
+                {
+                    case string A when A.Contains("stop") || A.Contains("Stop"):
+                        programOn = false;
+                        break;
+
+                    case string B when B.Contains("drink ") || B.Contains("Drink "):
+                        //splits the string "drink 51" at the first " " whitespace
+                        string[] sipParsed = sipping.Split(" ");
+
+                        //returns if int is present, and if not, lets user know they have made a mistake
+                        if (int.TryParse(sipParsed[1], out mLsDrank) != true)
+                        {
+                            Console.WriteLine(errorMessage);
+                        }
+                        //calculates new LiquidLevel and avoids backwash
+                        if (mLsDrank < 0)
+                            break;
+                        else
+                            stein.Drink(mLsDrank);
+
+                        //reinitializes LiquidLevel
+                        if (stein.LiquidLevel < 100)
+                        {
+                            stein.Refill();
+                            Console.WriteLine("Glass is a little low, here is your free refill!");
+                        }
+                        break;
+
+                    case string C when C.Contains("print") || C.Contains("Print"):
+                        Console.WriteLine($"This glass contains {stein.LiquidLevel}ml of liquid.");
+                        Console.WriteLine("");
+
+                        //new switch to match the ### to the liquidlevel
+                        {
+                            switch (stein.LiquidLevel)
+                            {
+                                case int A when A >= 180:
+                                    for (int i = 0; i < 6; i++)
+                                    {
+                                        Console.WriteLine("|######|");
+                                    }
+
+                                    break;
+
+                                case int B when B >= 160 && B < 180:
+                                    for (int i = 0; i < 6; i++)
+                                    {
+                                        if (i == 0)
+                                            Console.WriteLine("|      |");
+                                        if (i != 0)
+                                            Console.WriteLine("|######|");
+                                    }
+                                    break;
+                                case int D when D < 160 && D >= 130:
+                                    for (int i = 0; i < 6; i++)
+                                    {
+                                        if (i == 0 || i == 1)
+                                        {
+                                            Console.WriteLine("|      |");
+                                        }
+                                        else
+                                            Console.WriteLine("|######|");
+
+                                    }
+                                    break;
+
+                                case int E when E >= 100 && E < 130:
+                                    for (int i = 0; i < 6; i++)
+                                    {
+                                        if (i == 0 || i == 1 || i == 2)
+                                        {
+                                            Console.WriteLine("|      |");
+                                        }
+                                        else
+                                            Console.WriteLine("|######|");
+                                    }
+                                    break;
+                            }
+                        }
+                        Console.WriteLine("--------");
+                        Console.WriteLine("\n \n");
+                        break;
+                    //to catch incorrect inputs    
+                    default:
+                        Console.WriteLine(errorMessage);
+                        programOn = false;
+                        break;
+                }
+            }
+        }
+    }
+}
