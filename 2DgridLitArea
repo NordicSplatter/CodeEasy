@@ -1,4 +1,6 @@
 /*
+Next, take the class Point from the previous task and rename it to Point2D (2D stands for two-dimensional). Also take the LitArea class and rename it to LitArea2D. Add a public method Draw() to the LitArea2D class that takes no arguments and returns void.
+In the Main method, read four integers from the console, each from the new line: xTopLeft, yTopLeft, xBottomRight, and yBottomRight. Create an object of type LitArea2D, passing these four integers as parameters to a constructor. These four integers represent coordinates on a 2D grid: the coordinate system starts in the top left corner; X axes are horizontal, and Y are vertical. Implement method Draw() in the class LitArea2D to draw an area using ASCII art, according to integer coordinates that the user input. The dark area to the left and above the lit area should be indicated with a dot ("."), and the lit area itself with a pound sign ("#"). Then, call this method from Main. 
 >0
 >0
 >2
@@ -58,7 +60,7 @@ namespace AccessModifiers
         }
         public void Draw()
         {
-            for(int i = 0; i <= _topLeft.Y; i++)
+            for(int i = 1; i <= _topLeft.Y; i++)
             {
                 if(i < _topLeft.Y)
                 {
@@ -77,22 +79,27 @@ namespace AccessModifiers
                     {
                         Console.Write(".");
                     }
+                    
+                    for(int z = 0; z <= _bottomRight.Y + 1 - _topLeft.Y; z++)
+                    {
+                        for(int x = 0; x < _topLeft.X; x++)
+                        {
+                            Console.Write(".");
+                        }
+                        for(int y = 0; y <= _bottomRight.X - _topLeft.X; y++)
+                        {
+                            Console.Write("#");
+                        }
+                
+                        Console.WriteLine();
+                    }
+            
                 }
+                
                 
                 
             }
             
-            for(int z = 0; z <= _bottomRight.Y - _topLeft.Y; z++)
-            {
-                for(int y = 0; y <= _bottomRight.X - _topLeft.X; y++)
-                {
-                    Console.Write("#");
-                }
-                
-                Console.WriteLine();
-            }
-            
-        
         }
     }
 
