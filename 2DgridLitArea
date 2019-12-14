@@ -58,9 +58,33 @@ namespace AccessModifiers
         }
         public void Draw()
         {
-            for(int i = 0; i <= _bottomRight.Y - _topLeft.Y; i++)
+            for(int i = 0; i <= _topLeft.Y; i++)
             {
-                for(int j = 0; j <= _bottomRight.X - _topLeft.X; j++)
+                if(i < _topLeft.Y)
+                {
+                    for(int j = 0; j <= _bottomRight.X; j++)
+                    {
+                            Console.Write(".");
+                        
+                        
+                    }
+                    Console.WriteLine();
+                }
+                
+                if(i == _topLeft.Y)
+                {
+                    for(int j = 0; j < _topLeft.X; j++)
+                    {
+                        Console.Write(".");
+                    }
+                }
+                
+                
+            }
+            
+            for(int z = 0; z <= _bottomRight.Y - _topLeft.Y; z++)
+            {
+                for(int y = 0; y <= _bottomRight.X - _topLeft.X; y++)
                 {
                     Console.Write("#");
                 }
