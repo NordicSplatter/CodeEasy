@@ -1,90 +1,79 @@
-/*
- * 
- */
-
+// NOT my own is a solution
 
 using System;
 
 namespace Static
 {
-
-    static class TextFramePretifier
+    static class ExtendedTextFramePretifier
     {
         private static int _textsPretified;
 
-
-        static TextFramePretifier()
+        static ExtendedTextFramePretifier()
         {
             _textsPretified = 0;
         }
 
-        public static void Prettify(int width, string text)
+        private static void PrintHorizontalLine(int length)
+        {
+            for (int i = 0; i < length; i++)
+            {
+                Console.Write('*');
+            }
+            Console.WriteLine();
+        }        
+
+        // Be aware that preferable way of working with strings is a StringBuilder.
+        // This example uses strings because StringBuilder haven't appeared in the course yet
+        public static void Prettify(string text, int frameWidth)
         {
             _textsPretified++;
-            
-            string [] tempString = text.Split(' ', 10);
 
             Console.WriteLine($"Processing text: {_textsPretified}");
-
-            //to print top row of****
-            for(int i = 0;i < width; i++)
-            {
-                Console.Write("*");
-            }
-            Console.WriteLine();
-
-            foreach (string s in tempString)
-            {
-                Console.Write($"* " + s);
-                if(s.Length < width - 4)
-                {
-                    for(int i = s.Length; i < width-4; i++)
-                    {
-                        Console.Write(" ");
-                    }
-                }
-                Console.WriteLine(" *");
-            }
-            //to print bottom row of ****
-            for (int i = 0; i < width; i++)
-            {
-                Console.Write("*");
-            }
-
-            Console.WriteLine();
-        }
-
-        
-    }
-
-
-class PresidentIsWeird
-{
-    public static void Main()
-    {
-            bool chatRoomOn = true;
-
-            int count = int.Parse(Console.ReadLine()); 
-            while(chatRoomOn)
-            {
-
-                string toPres = Console.ReadLine();
-
-
-                if(toPres == "exit")
-                {
-                    chatRoomOn = false;
-                    break;
-                }
-
-                else
-                {
-                    TextFramePretifier.Prettify(count, toPres);
-                }
-                
-            }
+            PrintHorizontalLine(frameWidth);
             
+            string[] words = text.Split(' ');            
+            int wordsCount = words.Length;
 
+            int wordIndex = 0;
+            while (wordIndex < wordsCount)
+            {
+                Console.Write("*");
+                int position = 1;
+
+                // Printing all words that fit the line
+                while ((wordIndex < wordsCount) && (position + words[wordIndex].Length + 1 <= frameWidth - 2))
+                {
+                    Console.Write(" " + words[wordIndex]);
+                    position += words[wordIndex].Length + 1;
+                    wordIndex++;
+                }
+
+                // Spaces in the end
+                for (int i = position; i < frameWidth - 2; i++)
+                {
+                    Console.Write(' ');
+                }
+                Console.Write(" *");
+                Console.WriteLine();
+            }
+
+            PrintHorizontalLine(frameWidth);
+        }
+    }
+
+    class PresidentIsEvenMoreWeird
+    {
+        public static void Main()
+        {
+            var frameWidth = int.Parse(Console.ReadLine());
+            var input = Console.ReadLine();
+
+            while (input != "exit")
+            {
+                ExtendedTextFramePretifier.Prettify(input, frameWidth);
+                input = Console.ReadLine();
+            }
+        }
     }
 }
-}
+        
